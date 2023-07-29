@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./components/UI/Header";
 import { Layout } from "./components/UI/Layout";
 import RandomUserGenerator from "./components/Functional/RandomUserGenerator";
@@ -9,8 +10,7 @@ function App() {
   return (
     <Layout>
       <Header />
-      <Random />
-      <RandomUserGenerator/>
+      <RandomUserGenerator />
     </Layout>
   );
 }
