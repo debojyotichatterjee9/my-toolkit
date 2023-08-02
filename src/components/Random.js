@@ -9,7 +9,8 @@ const formReducer = (state, action) => {
             email: action.email,
             emailValidationFlag: action.email.includes("@"),
             password: state.password,
-            pwdValidationFlag: state.pwdValidationFlag
+            pwdValidationFlag: state.pwdValidationFlag,
+            formValidationFlag: state.formValidationFlag
         }
     }
     if (action.type === "EMAIL_BLUR") {
@@ -17,7 +18,8 @@ const formReducer = (state, action) => {
             email: state.email,
             emailValidationFlag: state.email.includes("@"),
             password: state.password,
-            pwdValidationFlag: state.pwdValidationFlag
+            pwdValidationFlag: state.pwdValidationFlag,
+            formValidationFlag: state.formValidationFlag
         }
     }
     if (action.type === "PWD_CHANGE") {
@@ -25,7 +27,8 @@ const formReducer = (state, action) => {
             email: state.email,
             emailValidationFlag: state.emailValidationFlag,
             password: action.password,
-            pwdValidationFlag: action.password.length > 4
+            pwdValidationFlag: action.password.length > 4,
+            formValidationFlag: state.formValidationFlag
         }
     }
     if (action.type === "PWD_BLUR") {
@@ -33,7 +36,17 @@ const formReducer = (state, action) => {
             email: state.email,
             emailValidationFlag: state.emailValidationFlag,
             password: state.password,
-            pwdValidationFlag: state.password.length > 4
+            pwdValidationFlag: state.password.length > 4,
+            formValidationFlag: state.formValidationFlag
+        }
+    }
+    if (action.type === "FORM_STATE_UPDATE") {
+        return {
+            email: state.email,
+            emailValidationFlag: state.emailValidationFlag,
+            password: state.password,
+            pwdValidationFlag: state.pwdValidationFlag,
+            formValidationFlag: action.formValidationFlag
         }
     }
     return {
@@ -45,17 +58,27 @@ const formReducer = (state, action) => {
 const Random = () => {
 
 
-    useEffect(() => {
-        console.log("USE STATE CALLED WHEN COMPONENT RENDERS")
-    }, []);
-
-
     const [formState, dispatchForm] = useReducer(formReducer, {
         email: "",
-        emailValidationFlag: true,
+        emailValidationFlag: false,
         password: "",
-        pwdValidationFlag: true
-    })
+        pwdValidationFlag: false,
+        formValidationFlag: false
+    });
+
+    const {emailValidationFlag: emailFlag} = formState;
+    const {pwdValidationFlag: pwdFlag} = formState;
+
+    useEffect(() => {
+        const identifier = setTimeout(() => {
+            console.log("***USE EFFECT --> CHECKING FORM VALIDITY***");
+            formStateChangeHandler();
+        }, 500);
+        return () => {
+            console.log("***USE EFFECT CLEANUP***");
+            clearTimeout(identifier);
+        }
+    }, [emailFlag, pwdFlag]);
 
     const emailChangeHandler = (event) => {
         dispatchForm({
@@ -75,6 +98,12 @@ const Random = () => {
     }
     const pwdBlurHandler = () => {
         dispatchForm({ type: "PWD_BLUR" })
+    }
+    const formStateChangeHandler = () => {
+        dispatchForm({
+            type: "FORM_STATE_UPDATE",
+            formValidationFlag: formState.emailValidationFlag && formState.pwdValidationFlag
+        })
     }
     const submitHandler = () => {
         console.log(formState)
@@ -99,7 +128,7 @@ const Random = () => {
                     </Row>
                     <Spacer y={1} />
                     <Row justify="center" align="center">
-                        <Button onClick={submitHandler} color="secondary" auto>Validate</Button>
+                        <Button disabled={!formState.formValidationFlag} onClick={submitHandler} color="secondary" auto>Validate</Button>
                     </Row>
                 </Card.Body>
             </Card>
