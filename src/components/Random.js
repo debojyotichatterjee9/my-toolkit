@@ -1,5 +1,6 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
-import { Container, Card, Row, Col, Text, Input, Spacer, Button } from "@nextui-org/react";
+import React, { Fragment, useEffect, useReducer, useContext } from 'react';
+import { Container, Card, Row, Col, Text, Input, Spacer, Button, Textarea } from "@nextui-org/react";
+import ThemeContext from '../store/test-context';
 
 
 
@@ -56,7 +57,7 @@ const formReducer = (state, action) => {
 };
 
 const Random = () => {
-
+const context = useContext(ThemeContext);
 
     const [formState, dispatchForm] = useReducer(formReducer, {
         email: "",
@@ -66,8 +67,8 @@ const Random = () => {
         formValidationFlag: false
     });
 
-    const {emailValidationFlag: emailFlag} = formState;
-    const {pwdValidationFlag: pwdFlag} = formState;
+    const { emailValidationFlag: emailFlag } = formState;
+    const { pwdValidationFlag: pwdFlag } = formState;
 
     useEffect(() => {
         const identifier = setTimeout(() => {
@@ -109,30 +110,42 @@ const Random = () => {
         console.log(formState)
     }
     return (
-        <Container>
-            <Card css={{ $$cardColor: '$colors$primary' }}>
-                <Card.Body>
-                    <Row justify="center" align="center">
-                        <Text h6 size={15} color="black" css={{ m: 0 }}>
-                            Make some random component here:
-                        </Text>
-                    </Row>
-                    <Spacer y={1} />
-                    <Row justify="center" align="center">
-                        <Col>
-                            <Input status={formState.emailValidationFlag ? "primary" : "error"} onChange={emailChangeHandler} onBlur={emailBlurHandler} placeholder="Enter your email here..." />
-                        </Col>
-                        <Col>
-                            <Input status={formState.pwdValidationFlag ? "primary" : "error"} onChange={pwdChangeHandler} onBlur={pwdBlurHandler} placeholder="Enter your password here..." />
-                        </Col>
-                    </Row>
-                    <Spacer y={1} />
-                    <Row justify="center" align="center">
-                        <Button disabled={!formState.formValidationFlag} onClick={submitHandler} color="secondary" auto>Validate</Button>
-                    </Row>
-                </Card.Body>
-            </Card>
-        </Container>
+        // using the useContext Hook at the top which is a cleaner way to use react context
+        // <ThemeContext.Consumer>
+        //     {(context) => (
+                <Container>
+                    <Card css={{ $$cardColor: '$colors$primary' }}>
+                        <Card.Body>
+                            <Row justify="center" align="center">
+                                <Text h6 size={15} color="black" css={{ m: 0 }}>
+                                    Make some random component here:
+                                </Text>
+                            </Row>
+                            <Spacer y={1} />
+                            <Row justify="center" align="center">
+                                <Col>
+                                    <Input status={formState.emailValidationFlag ? "primary" : "error"} onChange={emailChangeHandler} onBlur={emailBlurHandler} placeholder="Enter your email here..." />
+                                </Col>
+                                <Col>
+                                    <Input status={formState.pwdValidationFlag ? "primary" : "error"} onChange={pwdChangeHandler} onBlur={pwdBlurHandler} placeholder="Enter your password here..." />
+                                </Col>
+                            </Row>
+                            <Spacer y={1} />
+                            <Row justify="center" align="center">
+                                <Button disabled={!formState.formValidationFlag} onClick={submitHandler} color="secondary" auto>Validate</Button>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                    <Textarea
+                        label="Random Stuff to render"
+                        labelPlacement="outside"
+                        placeholder="Enter your description"
+                        className="max-w-xs"
+                        value={JSON.stringify(context)}
+                    />
+                </Container>
+        //     )}
+        // </ThemeContext.Consumer>
     )
 
 }
