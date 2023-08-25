@@ -1,9 +1,10 @@
 import React from "react";
-import Header from "./components/UI/Header";
+import Header from "./components/Functional/Header";
 import { Layout } from "./components/UI/Layout";
 import RandomUserGenerator from "./components/Functional/RandomUserGenerator";
 import RandomUserGeneratorv2 from "./components/Functional/RandomUserGeneratorv2";
 import Random from "./components/Random";
+import CustomModal from "./components/UI/Modal";
 import ThemeContext from "./store/test-context";
 
 function App() {
@@ -12,12 +13,12 @@ function App() {
       theme: "dark",
       components: "blue"
     }}>
-      <Layout>
+      {/* <Layout> */}
         <Header />
-        <Random />
+        {/* <CustomModal /> */}
         {/* <RandomUserGenerator /> */}
         {/* <RandomUserGeneratorv2 /> */}
-      </Layout>
+      {/* </Layout> */}
     </ThemeContext.Provider>
   );
 }

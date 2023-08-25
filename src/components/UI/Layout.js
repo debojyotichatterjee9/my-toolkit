@@ -1,11 +1,13 @@
 import { Box } from "./Box.js";
 
-export const Layout = ({ children }) => (
+export const Layout = ({ children }) => {
+  return (
     <Box
-        css={{
-            maxW: "100%"
-        }}
+      css={{
+        maxW: "100%"
+      }}
     >
-        {children}
+      {children}
     </Box>
-);
+  )
+}
