@@ -1,7 +1,7 @@
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
-import {ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale} from "../UI/Icons.jsx";
-import {AcmeLogo} from "../UI/AcmeLogo.jsx";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@nextui-org/react";
+import { ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale } from "../UI/Icons.jsx";
+import { AcmeLogo } from "../UI/AcmeLogo.jsx";
 
 export default function Header() {
   const icons = {
@@ -13,6 +13,38 @@ export default function Header() {
     server: <Server className="text-success" fill="currentColor" size={30} />,
     user: <TagUser className="text-danger" fill="currentColor" size={30} />,
   };
+  const toolOptions = [
+    {
+      key: "tool1",
+      name: "Tool 1",
+      description: "Add Description",
+      startContent: icons.scale
+    },
+    {
+      key: "tool2",
+      name: "Tool 2",
+      description: "Add Description",
+      startContent: icons.activity
+    },
+    {
+      key: "tool3",
+      name: "Tool 3",
+      description: "Add Description",
+      startContent: icons.flash
+    },
+    {
+      key: "tool4",
+      name: "Tool 4",
+      description: "Add Description",
+      startContent: icons.server
+    },
+    {
+      key: "tool5",
+      name: "Tool 5",
+      description: "Add Description",
+      startContent: icons.user
+    }
+  ]
 
   return (
     <Navbar>
@@ -30,7 +62,7 @@ export default function Header() {
                 radius="sm"
                 variant="light"
               >
-                Features
+                Tools
               </Button>
             </DropdownTrigger>
           </NavbarItem>
@@ -41,61 +73,32 @@ export default function Header() {
               base: "gap-4",
             }}
           >
-            <DropdownItem
-              key="autoscaling"
-              description="ACME scales apps to meet user demand, automagically, based on load."
-              startContent={icons.scale}
-            >
-              Autoscaling
-            </DropdownItem>
-            <DropdownItem
-              key="usage_metrics"
-              description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-              startContent={icons.activity}
-            >
-              Usage Metrics
-            </DropdownItem>
-            <DropdownItem
-              key="production_ready"
-              description="ACME runs on ACME, join us and others serving requests at web scale."
-              startContent={icons.flash}
-            >
-              Production Ready
-            </DropdownItem>
-            <DropdownItem
-              key="99_uptime"
-              description="Applications stay on the grid with high availability and high uptime guarantees."
-              startContent={icons.server}
-            >
-              +99% Uptime
-            </DropdownItem>
-            <DropdownItem
-              key="supreme_support"
-              description="Overcome any challenge with a supporting team ready to respond."
-              startContent={icons.user}
-            >
-              +Supreme Support
-            </DropdownItem>
+            {toolOptions.map(tool => (
+              <DropdownItem
+                key={tool.key}
+                description={tool.description}
+                startContent={tool.startContent}
+              >
+                {tool.name}
+              </DropdownItem>
+            ))}
           </DropdownMenu>
         </Dropdown>
         <NavbarItem>
           <Link href="#" aria-current="page">
-            Customers
+            Blog
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground" href="#">
-            Integrations
+            About Me
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
           <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
+            Reach Me out!!!
           </Button>
         </NavbarItem>
       </NavbarContent>
