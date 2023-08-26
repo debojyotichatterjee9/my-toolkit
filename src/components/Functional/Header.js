@@ -1,9 +1,9 @@
 import React from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@nextui-org/react";
-import { ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale } from "../UI/Icons";
-import { AcmeLogo } from "../UI/AcmeLogo.jsx";
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
+import {ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale} from "../UI/Icons.jsx";
+import {AcmeLogo} from "../UI/AcmeLogo.jsx";
 
-export default function App() {
+export default function Header() {
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
     scale: <Scale className="text-warning" fill="currentColor" size={30} />,
@@ -20,12 +20,11 @@ export default function App() {
         <AcmeLogo />
         <p className="font-bold text-inherit">ACME</p>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="sm:flex gap-4" justify="center">
         <Dropdown>
           <NavbarItem>
             <DropdownTrigger>
               <Button
-                disableRipple
                 className="p-0 bg-transparent data-[hover=true]:bg-transparent"
                 endContent={icons.chevron}
                 radius="sm"
@@ -79,7 +78,7 @@ export default function App() {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <NavbarItem isActive>
+        <NavbarItem>
           <Link href="#" aria-current="page">
             Customers
           </Link>
@@ -91,7 +90,7 @@ export default function App() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
+        <NavbarItem>
           <Link href="#">Login</Link>
         </NavbarItem>
         <NavbarItem>

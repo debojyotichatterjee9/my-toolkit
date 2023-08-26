@@ -1,25 +1,13 @@
 import React from "react";
-import Header from "./components/Functional/Header";
-import { Layout } from "./components/UI/Layout";
-import RandomUserGenerator from "./components/Functional/RandomUserGenerator";
-import RandomUserGeneratorv2 from "./components/Functional/RandomUserGeneratorv2";
-import Random from "./components/Random";
-import CustomModal from "./components/UI/Modal";
-import ThemeContext from "./store/test-context";
-
+import { NextUIProvider } from "@nextui-org/react";
+import Header from "./components/Functional/Header"
 function App() {
   return (
-    <ThemeContext.Provider value={{
-      theme: "dark",
-      components: "blue"
-    }}>
-      {/* <Layout> */}
+    <NextUIProvider>
+      <main className="dark text-foreground bg-background">
         <Header />
-        {/* <CustomModal /> */}
-        {/* <RandomUserGenerator /> */}
-        {/* <RandomUserGeneratorv2 /> */}
-      {/* </Layout> */}
-    </ThemeContext.Provider>
+      </main>
+    </NextUIProvider>
   );
 }
 
