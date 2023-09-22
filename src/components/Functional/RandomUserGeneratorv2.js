@@ -6,6 +6,10 @@ import userSections from "../componentConfig/userSectionConfig";
 
 const RandomUserGeneratorv2 = () => {
     const [loadngFlag, setLoadingFlag] = useState(true);
+    const [error, setError] = useState({
+        flagValue: false,
+        message: null
+    });
     const [user, setUser] = useState({
         basic: {},
         contact: {},
@@ -30,19 +34,35 @@ const RandomUserGeneratorv2 = () => {
                 login: {},
             });
             setLoadingFlag(false);
+            setError(false);
 
-        }).catch(error => console.log(error));
+        }).catch(error => {
+            setLoadingFlag(false);
+            setError({
+                flagValue: true,
+                message: "Unable to fetch data at the moment. Please try v1 or try again later!!"
+            });
+
+        });
     }, []);
     const sections = Object.keys(user);
-    return (
-        <React.Fragment>
-            {!loadngFlag
-                ?
-                <CustomAccordion sections={sections} data={user} />
-                :
-                <p>Loading...</p>}
-        </React.Fragment>
-    )
+
+    if (loadngFlag) {
+        return (
+            <React.Fragment>
+                <p>Loading...</p>
+            </React.Fragment>
+        )
+    }
+    if (error.flagValue) {
+        return (
+            <React.Fragment>
+                <p>{error.message}</p>
+            </React.Fragment>
+        )
+    }
+    return <CustomAccordion sections={sections} data={user} />
+
 }
 
 export default RandomUserGeneratorv2;
