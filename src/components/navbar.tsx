@@ -1,6 +1,17 @@
+'use client';
 import Image from "next/image";
+import { FormEvent } from "react";
 
 const NavigationBar = () => {
+  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const searchQuery = (event.target as HTMLFormElement).elements.search.value;
+    const searchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(
+      searchQuery
+    )}`;
+    window.open(searchUrl, "_blank");
+  };
+
   return (
     <div className="navbar bg-base-100">
       {/* Left Portion */}
@@ -46,12 +57,14 @@ const NavigationBar = () => {
       <div className="navbar-end">
         {/* Saerch Bar */}
         <div className="form-control">
-          <input
-            type="text"
-            name="search"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              name="search"
+              placeholder="Search"
+              className="input input-bordered w-24 md:w-auto"
+            />
+          </form>
         </div>
         {/* Right Side Menu */}
         <div className="dropdown dropdown-end">
