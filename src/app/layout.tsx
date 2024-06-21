@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import NavigationBar from "@/components/navbar";
 
-const DynamicNavbar = dynamic(() => import ("@/components/navbar"), { ssr: false });
+const DynamicNavbar = dynamic(() => import("@/components/navbar"), {
+  ssr: false,
+});
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <body className={inter.className}>
-      <NavigationBar/>
-        {/* <DynamicNavbar /> */}
-        {children}
+          <NavigationBar />
+        <div className="md:container md:mx-auto">
+          {/* <DynamicNavbar /> */}
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -102,7 +102,8 @@ const UuidGenerator = () => {
       <div className="mt-4">
         <input
           type="text"
-          className="input input-bordered input-primary"
+          placeholder="Click on Generate to get a new UUID!"
+          className="input input-bordered input-warning w-full max-w-xs"
           value={selectedUuid}
           readOnly
         />
